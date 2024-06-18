@@ -1,4 +1,4 @@
-//for verifiaction template
+//for email verifiaction template
 
 import {
     Html,
