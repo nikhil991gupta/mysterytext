@@ -27,13 +27,25 @@ export async function POST(request:Request) {
 
             })
         }
-       const existinguserbyemail=UserModel.findOne({email})
-       if(await existinguserbyemail)
+       const existinguserbyemail=await UserModel.findOne({email})
+       if( existinguserbyemail)
         {
             return true;
         }
+        else{
+            //existing user by mail not found sor register
+            const hashedpasswrod=await bcrypt.hash(password,10)
+            // object rederence pount so the value can change
+            const expiryDate=new Date()
+            expiryDate.setDate(expiryDate.getDate()+1)
+            new UserModel({
+                username,
+                email,
+                password:hashedpasswrod,
+                
+            })
 
-        
+        }  
     } catch (error) {
         console.log("object",error)
         return Response.json(
